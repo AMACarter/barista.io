@@ -36,7 +36,7 @@ void setPowerStateOnServer(String deviceId, String value);
 void turnOn(String deviceId) {
   if (deviceId == aromaBtn) // Aroma Button ID
   {  
-    Serial.print("Pouring some coffee for JNZR");
+    Serial.print("Pouring some coffee for you.");
     Serial.println(deviceId);
     digitalWrite(Aroma, LOW);
     delay(500);
