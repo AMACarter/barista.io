@@ -27,7 +27,7 @@
 #include <TimeLib.h>
 
 
-// Uncomment for "optional"/WIP features
+// Uncomment for "WIP features
 /*
  * #include <LiquidCrystal.h>
  * #include <WebSerial.h>
@@ -137,6 +137,9 @@ void turnOff(String deviceId) {
   }
 }
 //------------------------------------------------------------------------------------------------
+// Messages consist of the letter T followed by ten digit time (as seconds since Jan 1 1970)
+// you can send the text on the next line using Serial Monitor to set the clock to time of upload 
+
 void selfCleaningClock() {
   Serial.print(hour());
   printDigits(minute());
@@ -150,9 +153,36 @@ void selfCleaningClock() {
   Serial.println();
   }
 
-void printDigits(int digits)
+void printDigits(int digits) {
+  Serial.print(":");
+  if (digits < 10)
+  Serial.print('0');
+  Serial.print(digits);
+}
 
+void processSyncMessage() {
+  unsigned long pctime;
+  const unsigned long DEFAULT_TIME = 1619037407; //Current unix epoch time - 21st April 9:37pm 2021
+  
+  if(Serial.find(TIME_HEADER)) {
+     pctime = Serial.parseInt();
+     if( pctime >= DEFAULT_TIME) { // check the integer is a valid time (greater than Jan 1 2013)
+       setTime(pctime); // Sync Arduino clock to the time received on the serial port
+     }
+  }
+}
 
+time_t requestSync()
+{
+  Serial.write(TIME_REQUEST);  
+  return 0; // the time will be sent later in response to serial mesg
+}
+/*void selfCleanCycle(){
+ if () {
+    
+    }
+  }
+*/
 //------------------------------------------------------------------------------------------------
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
   switch(type) {
@@ -208,8 +238,7 @@ void setup() {
   Serial.begin(9600);
   pinMode(LED_BUILTIN, OUTPUT); // LED indicator - if we need to timesync
   setSyncProvider (requestSync); // set fucntion to call when sync is needed
-  Serial.println ("Waiting for sync.")
-  Serial. print('\n');
+  Serial.println ("Waiting for sync.");
   
   pinMode(Aroma, OUTPUT);
   pinMode(Power, OUTPUT);
