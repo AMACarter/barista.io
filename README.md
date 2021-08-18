@@ -1,6 +1,6 @@
 # Barista.io
+<img align="right" img src="https://github.com/AMACarter/barista.io/blob/main/images/baristaiogif.gif"/>  
 Alexa-Activated Smart Barista System 
-
 [Project Board](https://share.clickup.com/b/h/4-4675226-2/0b6b1e084a7327a)  
 [Website](https://amacarter.github.io/Barista-IO/)  
 [Feature List](https://amacarter.github.io/Barista-IO/features)  
