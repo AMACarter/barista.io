@@ -1,5 +1,5 @@
 # Barista.io
-Alexa-Activated Smart Barista System 
+Alexa-Activated Smart Barista System using a NodeMCU.
 <img align="right" width="500" height="300" img src="https://github.com/AMACarter/barista.io/blob/main/images/baristaiogif.gif"> 
 ### Features
 - Alexa-activated coffee brewing
